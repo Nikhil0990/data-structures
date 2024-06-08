@@ -108,3 +108,60 @@ int main() {
         printf("Element is present at index %d", result);
     return 0;
 }
+
+
+
+5)single linked
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+};
+struct Node* search(struct Node* head, int value) {
+    while (head != NULL && head->data != value)
+        head = head->next;
+    return head;
+}
+int main() {
+    struct Node* head = NULL;
+    head = (struct Node*)malloc(sizeof(struct Node));
+    head->data = 2;
+    head->next = (struct Node*)malloc(sizeof(struct Node));
+    head->next->data = 3;
+    head->next->next = NULL;
+    struct Node* result = search(head, 3);
+    if (result != NULL) {
+        printf("Value 3 found in the linked list.\n");
+    } else {
+        printf("Value 3 not found in the linked list.\n");
+    }
+    return 0;
+}
+
+
+
+
+6)double linked
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node {
+    int data;
+    struct Node *prev, *next;
+} Node;
+Node* search(Node* head, int value) {
+    while (head && head->data != value)
+        head = head->next;
+    return head;
+}
+int main() {
+    Node *head = (Node*)malloc(sizeof(Node)), *second = (Node*)malloc(sizeof(Node)), *third = (Node*)malloc(sizeof(Node));
+    head->data = 1; head->prev = NULL; head->next = second;
+    second->data = 2; second->prev = head; second->next = third;
+    third->data = 3; third->prev = second; third->next = NULL;
+    int value_to_search = 2;
+    Node* result = search(head, value_to_search);
+    printf(result ? "Value %d found.\n" : "Value %d not found.\n", value_to_search);
+    free(head); free(second); free(third);
+    return 0;
+}
